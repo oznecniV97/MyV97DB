@@ -33,6 +33,8 @@ Body:
 SELECT column_0, column_1 FROM schema.table WHERE column_1 = 'V97DB'
 ```
 
+>if the sql queries are only UPDATE or DELETE, you can do multiple queries separated by ";"
+
 Response:
 ```json
 [{"column_0": "1","column_1": "V97DB"}]
