@@ -2,7 +2,8 @@
 PHP API for MySQL Databases
 
 ## Headers table
-|Parameter|Mandatory|Type|Description|
+| Parameter | Mandatory | Type | Description |
+|-----------|-----------|------|-------------|
 |DB_ADDRESS|Y|String|IP address of the db|
 |DB_USERNAME|N (if config file is present)|String|Username to access on db|
 |DB_PASSWORD|N (if config file is present)|String|Password to access on db|
