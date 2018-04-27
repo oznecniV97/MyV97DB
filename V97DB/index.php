@@ -24,8 +24,8 @@ if($sql==NULL || trim($sql)==""){
 		$arrSQL[$i] = $t;
 	}
 	//check if there's only one query
-	foreach($arrSQL as $key => $sql){
-		if($sql==NULL || trim($sql)==""){
+	foreach($arrSQL as $key => $t_sql){
+		if($t_sql==NULL || trim($t_sql)==""){
 			header('chiave_cancellata:'.$key);
 			unset($arrSQL[$key]);
 		}
@@ -35,8 +35,8 @@ if($sql==NULL || trim($sql)==""){
 		unset($arrSQL);
 	}else{
 		//check if all the query are DELETE/UPDATE
-		foreach($arrSQL as $key => $sql){
-			$operation = strtoupper(strstr(trim($sql), ' ', true));
+		foreach($arrSQL as $key => $t_sql){
+			$operation = strtoupper(strstr(trim($t_sql), ' ', true));
 			if($operation != 'UPDATE' && $operation != 'DELETE'){
 				$DBManager->reply(V97DB::$responses["ERR_WRONG_MULTIPLE_TYPE"]);
 			}
@@ -101,9 +101,9 @@ if($status!==true)
 
 //multiple executions
 if (isset($arrSQL)){
-	foreach($arrSQL as $key => $sql){
+	foreach($arrSQL as $key => $t_sql){
 		//execute query and check result
-		$result[$key] = $DBManager->executeQuery($sql);
+		$result[$key] = $DBManager->executeQuery($t_sql);
 		if(!$result[$key]){
 			$DBManager->reply(V97DB::$responses["ERR_WRONG_QUERY"], $DBManager->getConnectionError());
 		}
