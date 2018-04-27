@@ -85,9 +85,9 @@ class V97DB{
 		}
 	}
 	
-	public function connect($servername, $username, $password, $dbname = ""){
+	public function connect($servername, $username, $password, $dbname = "", $port = 3306){
 		// Create connection
-		$conn = new mysqli($servername, $username, $password, $dbname);
+		$conn = new mysqli($servername, $username, $password, $dbname, $port);
 		// Check connection
 		if ($conn->connect_error) {
 			return $conn->connect_error;

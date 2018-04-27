@@ -91,10 +91,18 @@ if($useSshTunnel){
 $status = NULL;
 // Open connection
 $schema = $_SERVER["HTTP_DB_SCHEMA"];
-if($schema==NULL || trim($schema)==""){
-	$status = $DBManager->connect($servername, $username, $password);
+if($schema===NULL){
+	if($useSshTunnel){
+		$status = $DBManager->connect('127.0.0.1', $username, $password, "", $sshLocalPort);
+	}else{
+		$status = $DBManager->connect($servername, $username, $password);
+	}
 }else{
-	$status = $DBManager->connect($servername, $username, $password, $schema);
+	if($useSshTunnel){
+		$status = $DBManager->connect('127.0.0.1', $username, $password, $schema, $sshLocalPort);
+	}else{
+		$status = $DBManager->connect($servername, $username, $password, $schema);
+	}
 }
 if($status!==true)
 	$DBManager->reply(V97DB::$responses["ERR_NO_CONN"], $status);
