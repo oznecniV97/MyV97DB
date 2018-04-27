@@ -56,8 +56,7 @@ if($servername!=NULL && trim($servername)!=""){
 	|| $password==NULL || trim($password)==""){
 		//check the presence of a config file related to this db_address
 		include "configs/".$servername.".php";
-		if($username==NULL || trim($username)==""
-		|| $password==NULL || trim($password)==""){
+		if($username==NULL || trim($username)=="" || $password==NULL || trim($password)==""){
 			$DBManager->reply(V97DB::$responses["ERR_NO_DATA"], $servername);
 		}
 	}
@@ -79,6 +78,14 @@ if ((!empty($clients))){
 	if(!$present){
 		$DBManager->reply(V97DB::$responses["ERR_NOT_ALLOWED"], $_SERVER['REMOTE_ADDR']);
 	}
+}
+
+// (Issue 3) Check if SSH Tunnel feature is enabled and if true, run it
+if (!isset($useSshTunnel))
+	$useSshTunnel = false;
+if($useSshTunnel){
+	if(!$DBManager->openSSHTunnel($servername, $sshUsername, $sshPassword, $sshRemoteIp, $sshRemotePort, $sshLocalPort, $sshTimeout))
+		$DBManager->reply(V97DB::$responses["ERR_SSH_FAIL"]);
 }
 
 $status = NULL;

@@ -25,6 +25,10 @@ class V97DB{
 			'code' => 400,
 			'message' => "Missing header \"db_address\""
 		],
+		"ERR_SSH_FAIL" => [
+			'code' => 400,
+			'message' => "SSH connection failed. Please check configuration file."
+		],
 		"ERR_NO_CONN" => [
 			'code' => 400,
 			'message' => "Connection failed: {{replaced}}"
@@ -94,6 +98,21 @@ class V97DB{
 			$this->connection = $conn;
 			return true;
 		}
+	}
+	
+	public function openSSHTunnel($servername, $user, $password, $remoteIP, $remotePort, $localPort, $timeout = 20){
+		$ret = false;
+		if($servername!=NULL && trim($servername)!="" &&
+				$user!=NULL && trim($user)!="" &&
+				$password!=NULL && trim($password)!="" &&
+				$remoteIP!=NULL && trim($remoteIP)!="" &&
+				$remotePort!=NULL && trim($remotePort)!="" &&
+				$localPort!=NULL && trim($localPort)!=""){
+			shell_exec('sshpass -p "'.$password.'" ssh -f -oStrictHostKeyChecking=no '.$user.'@'.$servername.' -L '.$localPort.':'.$remoteIP.':'.$remotePort.' sleep '.$timeout);
+			//TODO add check if tunnel is open (netstat -tunap | grep $localPort)
+			$ret = true;
+		}
+		return $ret;
 	}
 	
 	public function executeQuery($sql){
