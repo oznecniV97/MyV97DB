@@ -100,7 +100,7 @@ class V97DB{
 		}
 	}
 	
-	public function openSSHTunnel($servername, $user, $password, $remoteIP, $remotePort, $localPort, $timeout = 20){
+	public function openSSHTunnel($servername, $user, $password, $remoteIP, $remotePort, $localPort, $timeout = 20, $out = '/temp/ssh_out.log'){
 		$ret = false;
 		if($servername!=NULL && trim($servername)!="" &&
 				$user!=NULL && trim($user)!="" &&
@@ -108,7 +108,7 @@ class V97DB{
 				$remoteIP!=NULL && trim($remoteIP)!="" &&
 				$remotePort!=NULL && trim($remotePort)!="" &&
 				$localPort!=NULL && trim($localPort)!=""){
-			shell_exec('sshpass -p "'.$password.'" ssh -f -oStrictHostKeyChecking=no '.$user.'@'.$servername.' -L '.$localPort.':'.$remoteIP.':'.$remotePort.' sleep '.$timeout);
+			shell_exec('sshpass -p "'.$password.'" ssh -f -oStrictHostKeyChecking=no '.$user.'@'.$servername.' -L '.$localPort.':'.$remoteIP.':'.$remotePort.' sleep '.$timeout.' >> '.$out);
 			//TODO add check if tunnel is open (netstat -tunap | grep $localPort)
 			$ret = true;
 		}

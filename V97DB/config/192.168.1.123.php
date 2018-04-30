@@ -12,3 +12,4 @@ $sshRemoteIp = "127.0.0.1";
 $sshRemotePort = "3306";
 $sshLocalPort = "7001";
 $sshTimeout = "20";
+$sshOutput = "/temp/ssh_out.log";

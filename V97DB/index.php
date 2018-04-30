@@ -84,7 +84,7 @@ if ((!empty($clients))){
 if (!isset($useSshTunnel))
 	$useSshTunnel = false;
 if($useSshTunnel){
-	if(!$DBManager->openSSHTunnel($servername, $sshUsername, $sshPassword, $sshRemoteIp, $sshRemotePort, $sshLocalPort, $sshTimeout))
+	if(!$DBManager->openSSHTunnel($servername, $sshUsername, $sshPassword, $sshRemoteIp, $sshRemotePort, $sshLocalPort, $sshTimeout, $sshOutput))
 		$DBManager->reply(V97DB::$responses["ERR_SSH_FAIL"]);
 }
 
